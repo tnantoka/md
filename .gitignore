@@ -1,0 +1,15 @@
+# TideSDK
+dist
+packages
+tmp
+
+# Mac
+.DS_Store
+
+# Vim
+*~
+.*.sw*
+
+# WebStorm
+.idea
+

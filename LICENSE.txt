@@ -1,0 +1,30 @@
+".md" is a simple markdown editor.
+This software does not warrant anything.
+
+# Powered by
+
+  * TideSDK
+    http://www.tidesdk.org/
+
+# Special Thanks
+
+  * jQuery
+    http://jquery.com/
+
+  * RequireJS
+    http://requirejs.org/
+
+  * Underscore.js
+    http://underscorejs.org/
+
+  * Backbone.js
+    http://backbonejs.org/
+
+  * Moment.js
+    http://momentjs.com/
+
+  * Font Awesome
+    http://fortawesome.github.com/Font-Awesome/
+
+  * Showdown
+    https://github.com/coreyti/showdown

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>.md</title>
+  <link rel="stylesheet" href="lib/fontawesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div id="fileList">
+  <div class="header">
+    <form>
+      <input type="search" class="search" placeholder="Queries" />
+    </form>
+  </div>
+
+  <ul class="list">
+  </ul>
+
+  <div class="footer">
+    <a href="#" class="add"><i class="icon icon-large icon-pencil"></i></a>
+    <a href="#" class="open"><i class="icon icon-large icon-file"></i></a>
+    <a href="#" class="remove"><i class="icon icon-large icon-trash"></i></a>
+  </div>
+</div>
+
+<div id="editor">
+  <textarea class="source"></textarea>
+  <div class="result">
+  </div>
+</div>
+
+<!--
+<script src="lib/showdown/showdown.js"></script>
+<script src="lib/showdown/extensions/twitter.js"></script>
+-->
+<script src="lib/require.js" data-main="app/main"></script>
+
+</body>
+
+</html>
