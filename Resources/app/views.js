@@ -39,11 +39,12 @@ define([
 
   var FileListView = Backbone.View.extend({
     events: {
-      "click .add": "addItem",
-      "click .open": "openItem",
-      "click .remove": "removeItem",
-      "keyup .search": "searchItem",
-      "click .search": "searchItem"
+      'click .add': 'addItem',
+      'click .open': 'openItem',
+      'click .remove': 'removeItem',
+      'keyup .search': 'searchItem',
+      'click .search': 'searchItem',
+      'click .source': 'sourceItem'
     },
     initialize: function() {
       this.collection.bind('add', this.onAdd, this);
@@ -93,6 +94,14 @@ define([
         }
         model.set('hidden', hidden);
       });
+    },
+    sourceItem: function() {
+      var source = _.escape(makeHtml(this.currentItem.get('text')));
+      var sourceWindow = Ti.UI.getCurrentWindow().createWindow({
+        title: this.currentItem.name,
+        contents: '<body style="background: white; overflow: hidden;"><pre>' + source + '</pre></body>'
+   		});
+      sourceWindow.open();
     },
     openDialog: function(func, title) {
       var options = {
@@ -154,8 +163,7 @@ define([
     updateSource: function () {
       var source = $(this.el).find('.source').val();
 
-      var converter = new Showdown.converter();
-      $(this.el).find('.result').html(converter.makeHtml(source));
+      $(this.el).find('.result').html(makeHtml(source));
 
       if (this.model && this.model.get('text') != source) {
         this.model.set('text', source);
@@ -181,6 +189,10 @@ define([
     }
   });
 
+  var converter = new Showdown.converter();
+  function makeHtml(md) {
+    return converter.makeHtml(md);
+  }
 
   return {
     FileView: FileView,
