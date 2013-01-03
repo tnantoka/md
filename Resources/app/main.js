@@ -15,10 +15,6 @@ require.config({
     'showdown': {
       exports: 'Showdown'
     },
-    'github': {
-      deps: ['showdown'],
-      exports: 'Showdown'
-    },
     'moment': {
       exports: 'moment'
     }
@@ -28,7 +24,6 @@ require.config({
     'underscore': '../lib/underscore-min',
     'backbone': '../lib/backbone-min',
     'showdown': '../lib/showdown/showdown',
-    'github': '../lib/showdown/extensions/github',
     'moment': '../lib/moment.min',
     'text': '../lib/text'
   }

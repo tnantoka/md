@@ -5,7 +5,7 @@ define([
   'underscore',
   'backbone',
   'models',
-  'github',
+  'showdown',
   'text!html/file.html'
 ], function($, _, Backbone, models, Showdown, fileHtml) {
 
@@ -129,6 +129,7 @@ define([
     },
     load: function() {
       var paths = JSON.parse(localStorage.getItem('fileList'));
+      if (!paths) return;
       for (var i = 0; i < paths.length; i++) {
         var path = paths[i];
         var file = Ti.Filesystem.getFile(path);
@@ -153,7 +154,7 @@ define([
     updateSource: function () {
       var source = $(this.el).find('.source').val();
 
-      var converter = new Showdown.converter({ extensions: ['github'] });
+      var converter = new Showdown.converter();
       $(this.el).find('.result').html(converter.makeHtml(source));
 
       if (this.model && this.model.get('text') != source) {

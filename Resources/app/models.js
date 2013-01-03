@@ -16,14 +16,16 @@ define([
     initialize: function() {
       var path = this.get('path');
       var file = Ti.Filesystem.getFile(path);
+      var name = path.split('/').pop();
 
       if (!file.exists()) {
+        this.set('text', '#' + name);
         this.save();
         file = Ti.Filesystem.getFile(path);
       }
 
       this.set('text', file.open().read().toString());
-      this.set('name', path.split('/').pop());
+      this.set('name', name);
       this.set('date', moment(file.modificationTimestamp() / 1000).fromNow());
       this.setSummray();
     },
