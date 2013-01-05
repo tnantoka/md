@@ -43,7 +43,6 @@ require([
   }
 
   var fileList = new models.FileList();
-
   var fileListView = new views.FileListView({
     collection: fileList,
     el: $('#fileList').get(0)
@@ -61,7 +60,5 @@ require([
     $('head title').text('.md');
     editorView.setModel(null);
   });
-
-  fileListView.load();
 
 });

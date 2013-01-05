@@ -39,26 +39,28 @@ define([
 
   var FileListView = Backbone.View.extend({
     events: {
-      'click .add': 'addItem',
-      'click .open': 'openItem',
-      'click .remove': 'removeItem',
-      'keyup .search': 'searchItem',
-      'click .search': 'searchItem',
-      'click .source': 'sourceItem'
+      'click .add': 'add',
+      'click .open': 'open',
+      'click .remove': 'remove',
+      'keyup .search': 'search',
+      'click .search': 'search',
+      'click .source': 'source'
     },
     initialize: function() {
       this.collection.bind('add', this.onAdd, this);
       this.collection.bind("remove", this.onRemove, this);
+
+      this.collection.load();
     },
     onAdd: function(model) {
       var view = new FileView({ model: model });
       $(this.el).find('.list').append(view.render().el);
       view.bind('select', this.onSelect, this);
       $(view.el).click();
-      this.save();
+      this.collection.save();
     },
     onRemove: function(model) {
-      this.save();
+      this.collection.save();
     },
     onSelect: function(view) {
       this.trigger('select', view);
@@ -68,13 +70,13 @@ define([
         model.set('current', model == view.model);
       });
     },
-    addItem: function () {
+    add: function () {
       this.openDialog('openSaveAsDialog', 'Create File');
     },
-    openItem: function () {
+    open: function () {
       this.openDialog('openFileChooserDialog');
     },
-    removeItem: function() {
+    remove: function() {
       if (!this.currentItem) return;
       if (!confirm('Remove item from list?\n(Real file is not deleted.)')) return;
 
@@ -82,7 +84,7 @@ define([
       delete this.currentItem;
       this.trigger('deselect');
     },
-    searchItem: function() {
+    search: function() {
       var queries = $(this.el).find('.search').val().split(/\s/);
       this.collection.each(function(model) {
         var hidden = false;
@@ -95,7 +97,7 @@ define([
         model.set('hidden', hidden);
       });
     },
-    sourceItem: function() {
+    source: function() {
       var source = _.escape(makeHtml(this.currentItem.get('text')));
       var sourceWindow = Ti.UI.getCurrentWindow().createWindow({
         title: this.currentItem.name,
@@ -129,27 +131,6 @@ define([
           this.collection.add(model);
     		}
     	}, this), options);
-    },
-    save: function() {
-      var paths = this.collection.map(function(model) {
-        return model.get('path');
-      });
-      localStorage.setItem('fileList', JSON.stringify(paths));
-    },
-    load: function() {
-      var paths = JSON.parse(localStorage.getItem('fileList'));
-      if (!paths) return;
-      for (var i = 0; i < paths.length; i++) {
-        var path = paths[i];
-        var file = Ti.Filesystem.getFile(path);
-        if (file.exists()) {
-          var model = new models.File({
-            path: path
-          });
-          this.collection.add(model);
-        }
-      }
-      this.save();
     }
   });
 
