@@ -38,9 +38,6 @@ define([
       document.open(Ti.Filesystem.MODE_WRITE);
       document.write(this.get('text'));
       document.close();
-    },
-    destroy: function() {
-      this.trigger("destroy", this);
     }
   });
 
