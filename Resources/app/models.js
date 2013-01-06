@@ -34,10 +34,10 @@ define([
     },
     save: function() {
       this.setSummray();
-      var document = Ti.Filesystem.getFileStream(this.get('path'));
-      document.open(Ti.Filesystem.MODE_WRITE);
-      document.write(this.get('text'));
-      document.close();
+      var stream = Ti.Filesystem.getFileStream(this.get('path'));
+      stream.open(Ti.Filesystem.MODE_WRITE);
+      stream.write(this.get('text'));
+      stream.close();
     }
   });
 
@@ -51,7 +51,9 @@ define([
     },
     load: function() {
       var paths = JSON.parse(localStorage.getItem('fileList'));
+
       if (!paths) return;
+      
       for (var i = 0; i < paths.length; i++) {
         var path = paths[i];
         var file = Ti.Filesystem.getFile(path);
@@ -62,6 +64,7 @@ define([
           this.add(model);
         }
       }
+      
       this.save(); // Update for sync with filesystem
     }
 

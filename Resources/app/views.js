@@ -49,8 +49,6 @@ define([
     initialize: function() {
       this.collection.bind('add', this.onAdd, this);
       this.collection.bind("remove", this.onRemove, this);
-
-      this.collection.load();
     },
     onAdd: function(model) {
       var view = new FileView({ model: model });

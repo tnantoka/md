@@ -35,30 +35,46 @@ require([
   'views'
 ], function ($, models, views) {
 
-  var DEBUG = false;
+  var DEBUG;
   //DEBUG = true;
 
-  if (DEBUG) {
-    Ti.UI.getCurrentWindow().showInspector();
-  }
+  var TEST;
+  TEST = true;
 
-  var fileList = new models.FileList();
-  var fileListView = new views.FileListView({
-    collection: fileList,
-    el: $('#fileList').get(0)
+  $(function() {
+    if (DEBUG) {
+      Ti.UI.getCurrentWindow().showInspector();
+    }
+
+    if (TEST) {
+      if(!/test/.test(location.href)) {
+        var win = Ti.UI.getCurrentWindow().createWindow('app://test/index.html');
+        win.open();
+      }
+    }
+
+    var fileList = new models.FileList();
+    var fileListView = new views.FileListView({
+      collection: fileList,
+      el: $('#fileList').get(0)
+    });
+
+    var editorView = new views.EditorView({
+      el: $('#editor').get(0)
+    });
+
+    fileListView.bind('select', function(view) {
+      $('head title').text(view.model.get('name') + ' - ' + view.model.get('path'));
+      editorView.setModel(view.model);
+    });
+    fileListView.bind('deselect', function() {
+      $('head title').text('.md');
+      editorView.setModel(null);
+    });
+
+    fileList.load();
+
   });
 
-  var editorView = new views.EditorView({
-    el: $('#editor').get(0)
-  });
-
-  fileListView.bind('select', function(view) {
-    $('head title').text(view.model.get('name') + ' - ' + view.model.get('path'));
-    editorView.setModel(view.model);
-  });
-  fileListView.bind('deselect', function() {
-    $('head title').text('.md');
-    editorView.setModel(null);
-  });
 
 });
