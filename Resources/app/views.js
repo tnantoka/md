@@ -100,7 +100,7 @@ define([
       var sourceWindow = Ti.UI.getCurrentWindow().createWindow({
         title: this.currentItem.name,
         contents: '<body style="background: white; overflow: hidden;"><pre>' + source + '</pre></body>'
-   		});
+       });
       sourceWindow.open();
     },
     openDialog: function(func, title) {
@@ -113,8 +113,8 @@ define([
       if (title) {
         options.title = title;
       }
-    	Ti.UI[func](_.bind(function(f) {
-    		if (f.length) {
+      Ti.UI[func](_.bind(function(f) {
+        if (f.length) {
           var path = f[0];
 
           var paths = this.collection.each(function(model) {
@@ -127,8 +127,8 @@ define([
             path: path
           });
           this.collection.add(model);
-    		}
-    	}, this), options);
+        }
+      }, this), options);
     }
   });
 

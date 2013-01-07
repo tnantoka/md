@@ -39,7 +39,7 @@ require([
   //DEBUG = true;
 
   var TEST;
-  TEST = true;
+  //TEST = true;
 
   $(function() {
     if (DEBUG) {
