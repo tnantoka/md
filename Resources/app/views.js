@@ -25,11 +25,11 @@ define([
       $(this.el).remove();
     },
     render: function() {
-      var visibility = this.model.get('hidden') ? 'hidden' : 'visible';
+      var display = this.model.get('hidden') ? 'none' : 'block';
       var current = this.model.get('current') ? 'current' : '';
       $(this.el)
         .html(_.template(fileHtml, this.model.attributes))
-        .css('visibility', visibility)
+        .css('display', display)
         .removeClass('current')
         .addClass(current)
       ;
@@ -87,8 +87,8 @@ define([
       this.collection.each(function(model) {
         var hidden = false;
         for (var i = 0; i < queries.length; i++) {
-          var query = queries[i];
-          if (query && model.get('path').indexOf(query) == -1) {
+          var query = queries[i].toLowerCase();
+          if (query && model.get('path').toLowerCase().indexOf(query) == -1) {
             hidden = true;
           }
         }
